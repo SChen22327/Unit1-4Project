@@ -1,6 +1,10 @@
+import java.util.Scanner;
 public class Runner {
     public static void main(String[] args) {
-        Work job = new Work();
+        Scanner scan = new Scanner(System.in);
+        System.out.print("Enter player name: ");
+        String name = scan.nextLine();
+        Work job = new Work(scan, name);
         job.start();
     }
 }

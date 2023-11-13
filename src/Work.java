@@ -1,17 +1,23 @@
 import java.util.Scanner;
 public class Work {
     private double money;
+    private String name;
     private Scanner scan;
+    private String ftName;
     private int day = 1;
-    public Work() {
+    public Work(Scanner scan, String name) {
         money = 0;
-        scan = new Scanner(System.in);
+        this.name = name;
+        this.scan = scan;
     }
 
     public void start() {
-        Upgrades upgrades = new Upgrades(money);
+        Upgrades upgrades = new Upgrades(money, scan);
+        System.out.print("Enter your food truck's name: ");
+        ftName = scan.nextLine();
+
         while (day != 8) {
-            System.out.println("\nDay " + day);
+            System.out.println("\nDay " + day + " of " + name + "'s food truck");
 
 
 
