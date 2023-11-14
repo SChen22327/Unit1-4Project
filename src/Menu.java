@@ -1,25 +1,27 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Scanner;
 public class Menu {
     private ArrayList<String> menuItems;
     private ArrayList<Double> prices;
-    public Menu() {
+    public Menu(Scanner scan) {
         menuItems = new ArrayList<>();
         prices = new ArrayList<>();
     }
-    public String getMenu() {
+    public void printMenu() {
         String string = "";
         for (int i = 0; i < menuItems.size(); i++) {
-            string += menuItems.get(i) + "\n";
+            string += menuItems.get(i) + "  |  $" + prices.get(i) + "\n";
         }
-        return string;
+        System.out.println(string);
     }
-    public String getPrices() {
-        String string = "";
-        for (int i = 0; i < prices.size(); i++) {
-            string += prices.get(i) + "\n";
-        }
-        return string;
+    public ArrayList getMenu() {
+        return menuItems;
     }
+    public ArrayList<Double> getPrices() {
+        return prices;
+    }
+
     public void addItem(String item, double price) {
         menuItems.add(item);
         prices.add(price);

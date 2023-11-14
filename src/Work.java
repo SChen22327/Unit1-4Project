@@ -3,22 +3,33 @@ public class Work {
     private double money;
     private String name;
     private Scanner scan;
+    private Upgrades upgrades;
+    private Menu menu;
     private String ftName;
-    private int day = 1;
+    private int day;
     public Work(Scanner scan, String name) {
         money = 0;
         this.name = name;
         this.scan = scan;
+        day = 1;
+        upgrades = new Upgrades(money, scan);
+        menu = new Menu(scan);
     }
 
     public void start() {
-        Upgrades upgrades = new Upgrades(money, scan);
+
         System.out.print("Enter your food truck's name: ");
         ftName = scan.nextLine();
 
         while (day != 8) {
             System.out.println("\nDay " + day + " of " + name + "'s food truck");
-
+            System.out.print("Add an item to the menu: ");
+            String item = scan.nextLine();
+            System.out.print("Type the cost: ");
+            double cost = scan.nextDouble();
+            System.out.println();
+            menu.addItem(item, cost);
+            menu.printMenu();
 
 
 
@@ -44,9 +55,16 @@ public class Work {
         }
     }
     public void work() {
-
+        double orderCost = 0;
+        int orders = (int) (Math.random() * 3) + (int) (Math.random() * menu.getMenu().size()) + 1;
+        for (int i = orders ; i > 0; i--) {
+            int random = (int) (Math.random() * menu.getMenu().size()) + 1;
+            orderCost += menu.getPrices().get(random);
+        }
+        System.out.println("You had " + orders + " orders. You made $" + orderCost + ".");
+        money += orderCost;
     }
     public void upgrade() {
-
+        upgrades.purchase();
     }
 }
