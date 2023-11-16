@@ -12,7 +12,7 @@ public class Work {
         this.name = name;
         this.scan = scan;
         day = 1;
-        upgrades = new Upgrades(money, scan);
+        upgrades = new Upgrades(scan);
         menu = new Menu(scan);
     }
 
@@ -35,9 +35,11 @@ public class Work {
             String item = scan.nextLine();
             System.out.print("Type the cost: ");
             double cost = scan.nextDouble();
+            scan.nextLine();
             System.out.println();
             menu.addItem(item, cost);
             menu.printMenu();
+
 
 
             day++;
@@ -48,6 +50,9 @@ public class Work {
             if (money >= 100) {
             }
         }
+    }
+    public double getMoney() {
+        return money;
     }
     public void choice() {
         System.out.println("Today, I'm going to(Choose one)");

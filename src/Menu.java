@@ -9,9 +9,9 @@ public class Menu {
         prices = new ArrayList<>();
     }
     public void printMenu() {
-        String string = "";
+        String string = "     Menu\n";
         for (int i = 0; i < menuItems.size(); i++) {
-            string += menuItems.get(i) + "  |  $" + prices.get(i) + "\n";
+            string += menuItems.get(i) + "  |  $" + String.format("%.2f",prices.get(i)) + "\n";
         }
         System.out.println(string);
     }
