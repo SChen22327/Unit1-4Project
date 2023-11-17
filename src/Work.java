@@ -7,6 +7,7 @@ public class Work {
     private Menu menu;
     private String ftName;
     private int day;
+    private int actions;
     public Work(Scanner scan, String name) {
         money = 0;
         this.name = name;
@@ -14,6 +15,7 @@ public class Work {
         day = 1;
         upgrades = new Upgrades(scan);
         menu = new Menu(scan);
+        actions = 1;
     }
 
     public void start() {
@@ -21,7 +23,7 @@ public class Work {
         ftName = scan.nextLine();
         System.out.println("""
                 The rules of this game are
-                  1. You have 7 days/rounds to earn $100.
+                  1. You have 7 days/rounds to earn $150.
                   2. You can buy upgrades which will greatly increase the money you earn but decreases the amount of money you have(see rule 5).
                   3. You can work each day to earn money. Upgrades will be applied at the end of each day.
                   4. You can ONLY choose to work or upgrade each day, you can't do both.
@@ -31,30 +33,34 @@ public class Work {
 
         while (day != 8 && money >= 0) {
             System.out.println("\nDay " + day + " of " + name + "'s food truck");
-            System.out.print("Add an item to the menu: ");
-            String item = scan.nextLine();
-            System.out.print("Type the cost: ");
-            double cost = scan.nextDouble();
-            scan.nextLine();
+            menu.addItem();
             System.out.println();
-            menu.addItem(item, cost);
             menu.printMenu();
-
+            for (int i = 0; i < actions; i++) {
+                choice();
+            }
 
 
             day++;
         }
-        if (money >= 0) {
+        if (money < 0) {
             System.out.println("You ran out of money and your food truck has gone out of business!");
+        } else if (money >= 150) {
+            System.out.println("Congratulations! Your food truck was a success and you hit your goal of $150!");
         } else {
-            if (money >= 100) {
-            }
+
         }
     }
     public double getMoney() {
         return money;
     }
-    public void choice() {
+    public void setMoney(double money) {
+        this.money = money;
+    }
+    public int getActions() {
+        return actions;
+    }
+    private void choice() {
         System.out.println("Today, I'm going to(Choose one)");
         System.out.print("[Work]    [Upgrade]");
         String choice = scan.nextLine();
@@ -66,17 +72,18 @@ public class Work {
             upgrade();
         }
     }
-    public void work() {
+    private void work() {
         double orderCost = 0;
         int orders = (int) (Math.random() * 3) + (int) (Math.random() * menu.getMenu().size()) + 1;
         for (int i = orders ; i > 0; i--) {
             int random = (int) (Math.random() * menu.getMenu().size()) + 1;
             orderCost += menu.getPrices().get(random);
         }
+        for (int i = 1; i < upgrades.)
         System.out.println("You had " + orders + " orders. You made $" + orderCost + ".");
         money += orderCost;
     }
     public void upgrade() {
-        upgrades.purchase();
+        upgrades.purchase(money);
     }
 }
