@@ -1,4 +1,8 @@
+/*  (1) https://www.javaprogramto.com/2020/08/how-to-make-delay-in-java-thread-sleep.html
+    (2)
+ */
 import java.util.Scanner;
+import java.util.ArrayList;
 public class Work {
     private double money;
     private String name;
@@ -29,10 +33,14 @@ public class Work {
                   4. You can ONLY choose to work or upgrade each day, you can't do both.
                       a. The amount of money made somewhat depends on the number of items on your menu, which increases by 1 each day, meaning you'll likely earn more later on.
                       b. If you choose to upgrade, you may only choose to upgrade one thing.
+                      c. The condition is changed if you upgrade number of actions, max 2 actions per day.
                   5. If you fail to earn enough money or run out of money, you will lose.""");
 
         while (day != 8 && money >= 0) {
             System.out.println("\nDay " + day + " of " + name + "'s food truck");
+            System.out.println("Current Balance: $" + String.format("%.2f", money));
+            System.out.println("# of Actions: " + actions);
+            System.out.println();
             menu.addItem();
             System.out.println();
             menu.printMenu();
@@ -48,7 +56,9 @@ public class Work {
         } else if (money >= 150) {
             System.out.println("Congratulations! Your food truck was a success and you hit your goal of $150!");
         } else {
-
+            System.out.println("You couldn't make your budget in time and now you're poor and homeless.\n");
+            sleep(3000);
+            System.out.println("FOREVER");
         }
     }
     public double getMoney() {
@@ -61,8 +71,8 @@ public class Work {
         return actions;
     }
     private void choice() {
-        System.out.println("Today, I'm going to(Choose one)");
-        System.out.print("[Work]    [Upgrade]");
+        System.out.println("Today, I'm going to(type name)");
+        System.out.println("     [Work]    [Upgrade]");
         String choice = scan.nextLine();
 
         if (choice.toLowerCase().equals("work")) {
@@ -76,14 +86,22 @@ public class Work {
         double orderCost = 0;
         int orders = (int) (Math.random() * 3) + (int) (Math.random() * menu.getMenu().size()) + 1;
         for (int i = orders ; i > 0; i--) {
-            int random = (int) (Math.random() * menu.getMenu().size()) + 1;
+            int random = (int) (Math.random() * menu.getMenu().size());
             orderCost += menu.getPrices().get(random);
         }
-        for (int i = 1; i < upgrades.)
+        orderCost *= upgrades.calculateBonus();
         System.out.println("You had " + orders + " orders. You made $" + orderCost + ".");
         money += orderCost;
     }
     public void upgrade() {
-        upgrades.purchase(money);
+        money = upgrades.purchase(money);
+    }
+    private void sleep(long time) { // (1)
+        try {
+            Thread.sleep(time);
+        } catch (InterruptedException e) {
+            System.out.println("Thread is interrupted");
+            Thread.currentThread().interrupt();
+        }
     }
 }

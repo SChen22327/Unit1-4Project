@@ -2,22 +2,27 @@ import java.text.DecimalFormat;
 import java.util.Scanner;
 public class Upgrades {
     private Scanner scan;
-    private String[] upgrades = {"Daily Actions", "Stove"};
-    private double[] levels = {1, 1};
+    private String[] upgrades = {"Daily Actions", "Stove", "Appearance"};
+    private int[] levels = {1, 1, 1};
     public Upgrades(Scanner scan) {
        this.scan = scan;
     }
 
-    public void purchase(double money) {
+    public double purchase(double money) {
         double cost;
         System.out.println("Upgrades(type the number of which upgrade)");
         for (int i = 0; i < upgrades.length; i++) {
             if (i == 0) {
+                System.out.print("1. Daily Actions, Level: ");
                 if (levels[0] == 2) {
-                    System.out.println("1. Daily Actions, MAXED");
+                    System.out.print("MAXED");
+                } else {
+                    System.out.println(1);
+                    cost = 5 + Math.round(Math.random() * levels[i] * 100) / 100.0;
+                    System.out.println("  |  $" + (cost + 5));
                 }
             } else {
-                System.out.print(i + ". " + upgrades[i] + ", ");
+                System.out.print(i + 1 + ". " + upgrades[i] + ", Level: ");
                 if (levels[i] == 3) {
                     System.out.println("MAXED");
                 } else {
@@ -36,10 +41,15 @@ public class Upgrades {
         }
         cost = 5 + Math.round(Math.random() * levels[choice] * 100) / 100.0;
         money -= cost;
-        levels[choice] += 0.1;
+        levels[choice] += 1;
         System.out.println(choice + ". " + upgrades[choice] + ", " + levels[choice]);
+        return money;
     }
-    private double getLevels(int index) {
-        return levels[index]; //JEEP VOIWORKGIB OBN TGUIS
+    public double calculateBonus() {
+        int bonus = 0;
+        for (int i = 0; i < levels.length; i++) {
+            bonus += levels[i] - 1;
+        }
+        return 1 + bonus * 0.1;
     }
 }
