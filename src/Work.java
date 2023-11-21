@@ -12,6 +12,7 @@ public class Work {
     private String ftName;
     private int day;
     private int actions;
+    private boolean easyMode;
     public Work(Scanner scan, String name) {
         money = 0;
         this.name = name;
@@ -20,6 +21,22 @@ public class Work {
         upgrades = new Upgrades(scan);
         menu = new Menu(scan);
         actions = 1;
+    }
+    public Work(Scanner scan, String name, boolean easy) {
+        money = 0;
+        this.name = name;
+        this.scan = scan;
+        day = 1;
+        System.out.print("Do you want to play in easy mode? All upgrades except actions will start at level 2.\nEnter 1 for easy mode, 2 for normal mode:");
+        String n = scan.nextLine();
+        if (n.toLowerCase().equals("1")) {
+            upgrades = new Upgrades(scan, true);
+        } else {
+            upgrades = new Upgrades(scan);
+        }
+        menu = new Menu(scan);
+        actions = 1;
+        easyMode = true;
     }
 
     public void start() {
@@ -36,12 +53,22 @@ public class Work {
                       c. The condition is changed if you upgrade number of actions, max 2 actions per day.
                   5. If you fail to earn enough money or run out of money, you will lose.""");
 
-        while (day != 8 && money >= 0) {
+        while (day != 8 && money >= 0) {          //THIS IS THE WORK DAY LOOP//
             System.out.println("\nDay " + day + " of " + name + "'s food truck");
             System.out.println("Current Balance: $" + String.format("%.2f", money));
             System.out.println("# of Actions: " + actions);
             System.out.println();
-            menu.addItem();
+            System.out.print("Enter \"yes\" if you want to make an item free, enter no to add a price. Be warned that this may affect your earnings:");
+            String y = scan.nextLine();
+            if (y.toLowerCase().equals("yes")) {
+                System.out.println("You chose to make this item free.");
+                System.out.print("Enter item to make free(I suggest water): ");
+                String item = scan.nextLine();
+                menu.addItem(item);
+            } else {
+                System.out.println("You chose to give it a price.");
+                menu.addItem();
+            }
             System.out.println();
             menu.printMenu();
             for (int i = 0; i < actions; i++) {
@@ -61,15 +88,6 @@ public class Work {
             System.out.println("FOREVER");
         }
     }
-    public double getMoney() {
-        return money;
-    }
-    public void setMoney(double money) {
-        this.money = money;
-    }
-    public int getActions() {
-        return actions;
-    }
     private void choice() {
         System.out.println("Today, I'm going to(type name)");
         System.out.println("     [Work]    [Upgrade]");
@@ -82,7 +100,7 @@ public class Work {
             upgrade();
         }
     }
-    private void work() {
+    private void work() {  //CALCULATES MONEY EARNED AND UPGRADE BONUSES//
         double orderCost = 0;
         int orders = (int) (Math.random() * 3) + (int) (Math.random() * menu.getMenu().size()) + 1;
         for (int i = orders ; i > 0; i--) {
@@ -96,7 +114,7 @@ public class Work {
     public void upgrade() {
         money = upgrades.purchase(money);
     }
-    private void sleep(long time) { // (1)
+    private void sleep(long time) { // (1) just here so I can make losing have a dramatic effect
         try {
             Thread.sleep(time);
         } catch (InterruptedException e) {

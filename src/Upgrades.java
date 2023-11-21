@@ -2,10 +2,16 @@ import java.text.DecimalFormat;
 import java.util.Scanner;
 public class Upgrades {
     private Scanner scan;
-    private String[] upgrades = {"Daily Actions", "Stove", "Appearance"};
-    private int[] levels = {1, 1, 1};
+    private String[] upgrades = {"Daily Actions", "Better Stove", "Appearance", "Better Supplier", "Cleaner Kitchen"};
+    private int[] levels = {1, 1, 1, 1, 1};
     public Upgrades(Scanner scan) {
        this.scan = scan;
+    }
+    public Upgrades(Scanner scan, boolean easy) {
+        this.scan = scan;
+        for (int i = 1; i < levels.length; i++) {
+            levels[i]++;
+        }
     }
 
     public double purchase(double money) {

@@ -34,6 +34,11 @@ public class Menu {
         menuItems.add(item);
         prices.add(price);
     }
+    public void addItem(String item) {
+        menuItems.add(item);
+        double price = 0;
+        prices.add(price);
+    }
     private String askItem() {
         System.out.print("Add an item to the menu: ");
         return scan.nextLine();
