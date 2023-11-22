@@ -23,32 +23,33 @@ public class Upgrades {
                 if (levels[0] == 2) {
                     System.out.print("MAXED");
                 } else {
-                    System.out.println(1);
-                    cost = 5 + Math.round(Math.random() * levels[i] * 100) / 100.0;
-                    System.out.println("  |  $" + (cost + 5));
+                    System.out.print(1);
+                    cost = 20 + Math.round(0.43 * levels[i] * 100) / 100.0;
+                    System.out.println("  |  $" + (cost));
                 }
             } else {
                 System.out.print(i + 1 + ". " + upgrades[i] + ", Level: ");
                 if (levels[i] == 3) {
                     System.out.println("MAXED");
                 } else {
-                    cost = 5 + Math.round(Math.random() * levels[i] * 100) / 100.0;
+                    cost = 5 + Math.round(0.43 * levels[i] * 100) / 100.0;
                     System.out.println(levels[i] + "  |  $" + cost);
                 }
             }
         }
         int choice = scan.nextInt();
         scan.nextLine();
-        if (levels[choice] == 3 || (choice == 3 && levels[0] == 2)) {
+        choice--;
+        if (levels[choice] == 3 || (choice == 1 && levels[0] == 2)) {
             System.out.print("That upgrade has been maxed out. Enter another one: ");
             choice = scan.nextInt();
             scan.nextLine();
             System.out.println();
         }
-        cost = 5 + Math.round(Math.random() * levels[choice] * 100) / 100.0;
+        cost = 5 + Math.round(0.43 * levels[choice] * 100) / 100.0;
         money -= cost;
         levels[choice] += 1;
-        System.out.println(choice + ". " + upgrades[choice] + ", " + levels[choice]);
+        System.out.println(choice + 1 + ". " + upgrades[choice] + ", " + levels[choice]);
         return money;
     }
     public double calculateBonus() {

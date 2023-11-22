@@ -18,16 +18,7 @@ public class Work {
         this.name = name;
         this.scan = scan;
         day = 1;
-        upgrades = new Upgrades(scan);
-        menu = new Menu(scan);
-        actions = 1;
-    }
-    public Work(Scanner scan, String name, boolean easy) {
-        money = 0;
-        this.name = name;
-        this.scan = scan;
-        day = 1;
-        System.out.print("Do you want to play in easy mode? All upgrades except actions will start at level 2.\nEnter 1 for easy mode, 2 for normal mode:");
+        System.out.print("Do you want to play in easy mode? All upgrades except actions will start at level 2.\nEnter 1 for easy mode, 2 for normal mode: ");
         String n = scan.nextLine();
         if (n.toLowerCase().equals("1")) {
             upgrades = new Upgrades(scan, true);
@@ -44,7 +35,7 @@ public class Work {
         ftName = scan.nextLine();
         System.out.println("""
                 The rules of this game are
-                  1. You have 7 days/rounds to earn $150.
+                  1. You have 7 days/rounds to earn $200.
                   2. You can buy upgrades which will greatly increase the money you earn but decreases the amount of money you have(see rule 5).
                   3. You can work each day to earn money. Upgrades will be applied at the end of each day.
                   4. You can ONLY choose to work or upgrade each day, you can't do both.
@@ -58,7 +49,7 @@ public class Work {
             System.out.println("Current Balance: $" + String.format("%.2f", money));
             System.out.println("# of Actions: " + actions);
             System.out.println();
-            System.out.print("Enter \"yes\" if you want to make an item free, enter no to add a price. Be warned that this may affect your earnings:");
+            System.out.print("Enter \"yes\" if you want to make an item free, enter no to add a price. Be warned that this may affect your earnings: ");
             String y = scan.nextLine();
             if (y.toLowerCase().equals("yes")) {
                 System.out.println("You chose to make this item free.");
@@ -80,7 +71,7 @@ public class Work {
         }
         if (money < 0) {
             System.out.println("You ran out of money and your food truck has gone out of business!");
-        } else if (money >= 150) {
+        } else if (money >= 200) {
             System.out.println("Congratulations! Your food truck was a success and you hit your goal of $150!");
         } else {
             System.out.println("You couldn't make your budget in time and now you're poor and homeless.\n");
@@ -95,9 +86,11 @@ public class Work {
 
         if (choice.toLowerCase().equals("work")) {
             work();
-        }
-        if (choice.toLowerCase().equals("upgrade")) {
+        } else if (choice.toLowerCase().equals("upgrade")) {
             upgrade();
+        } else {
+            System.out.println("That's not an option!");
+            choice();
         }
     }
     private void work() {  //CALCULATES MONEY EARNED AND UPGRADE BONUSES//
@@ -107,8 +100,8 @@ public class Work {
             int random = (int) (Math.random() * menu.getMenu().size());
             orderCost += menu.getPrices().get(random);
         }
-        orderCost *= upgrades.calculateBonus();
-        System.out.println("You had " + orders + " orders. You made $" + orderCost + ".");
+        orderCost = Math.round(orderCost * upgrades.calculateBonus() * 100) / 100.0;
+        System.out.println("You had " + orders + " orders. With current level of upgrades, you made $" + String.format("%.2f",orderCost) + ".");
         money += orderCost;
     }
     public void upgrade() {
