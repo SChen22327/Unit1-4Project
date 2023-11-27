@@ -1,15 +1,25 @@
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+/**This class represents a Menu object.
+ * @author Stanford*/
 public class Menu {
+    /**This is the scanner for getting user input.*/
     private Scanner scan;
+    /**This is an ArrayList for the items on the menu.*/
     private ArrayList<String> menuItems;
+    /**This is an ArrayList for the prices on the menu.*/
     private ArrayList<Double> prices;
+    /**Instantiates a Menu object
+     * @param scan scanner variable*/
     public Menu(Scanner scan) {
         menuItems = new ArrayList<>();
         prices = new ArrayList<>();
         this.scan = scan;
     }
+
+    /**Creates a string with the menu item and its price. It then prints the string as a menu.*/
     public void printMenu() {
         String string = "     Menu\n";
         for (int i = 0; i < menuItems.size(); i++) {
@@ -17,13 +27,17 @@ public class Menu {
         }
         System.out.println(string);
     }
+    /**Returns the Menu ArrayList
+     * @return menuItems*/
     public ArrayList getMenu() {
         return menuItems;
     }
+    /**Returns the Prices ArrayList
+     * @return prices*/
     public ArrayList<Double> getPrices() {
         return prices;
     }
-
+    /**Asks user for a menu item and price. Then adds it to the corresponding ArrayList.*/
     public void addItem() {
         String item = askItem();
         double price = askCost();
@@ -34,15 +48,21 @@ public class Menu {
         menuItems.add(item);
         prices.add(price);
     }
+    /**Overloaded method that adds a provided item to the menu and makes the item free(adds 0 to the Prices ArrayList)
+     *@param item item name*/
     public void addItem(String item) {
         menuItems.add(item);
         double price = 0;
         prices.add(price);
     }
+    /**Asks user for an item and return it as a String
+     * @return item name*/
     private String askItem() {
         System.out.print("Add an item to the menu: ");
         return scan.nextLine();
     }
+    /**Asks user for a price and return it as a double
+     * @return item price*/
     private double askCost() {
         System.out.print("Type the cost: ");
         double cost = scan.nextDouble();
