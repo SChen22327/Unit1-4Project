@@ -35,7 +35,7 @@ public class Work {
         ftName = scan.nextLine();
         System.out.println("""
                 The rules of this game are
-                  1. You have 7 days/rounds to earn $200.
+                  1. You have 7 days/rounds to earn $300.
                   2. You can buy upgrades which will greatly increase the money you earn but decreases the amount of money you have(see rule 5).
                   3. You can work each day to earn money. Upgrades will be applied at the end of each day.
                   4. You can ONLY choose to work or upgrade each day, you can't do both.
@@ -47,6 +47,9 @@ public class Work {
         while (day != 8 && money >= 0) {          //THIS IS THE WORK DAY LOOP//
             System.out.println("\nDay " + day + " of " + name + "'s food truck");
             System.out.println("Current Balance: $" + String.format("%.2f", money));
+            if (upgrades.incrementActions(actions)) {
+                actions++;
+            }
             System.out.println("# of Actions: " + actions);
             System.out.println();
             System.out.print("Enter \"yes\" if you want to make an item free, enter no to add a price. Be warned that this may affect your earnings: ");
@@ -64,6 +67,9 @@ public class Work {
             menu.printMenu();
             for (int i = 0; i < actions; i++) {
                 choice();
+                if (actions == 2) {
+                    System.out.println("Current Balance: $" + String.format("%.2f", money));
+                }
             }
 
 
@@ -72,7 +78,7 @@ public class Work {
         if (money < 0) {
             System.out.println("You ran out of money and your food truck has gone out of business!");
         } else if (money >= 200) {
-            System.out.println("Congratulations! Your food truck was a success and you hit your goal of $150!");
+            System.out.println("Congratulations! Your food truck was a success and you hit your goal of $300!");
         } else {
             System.out.println("You couldn't make your budget in time and now you're poor and homeless.\n");
             sleep(3000);
