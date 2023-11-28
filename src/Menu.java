@@ -39,6 +39,7 @@ public class Menu {
     }
     /**Asks user for a menu item and price. Then adds it to the corresponding ArrayList.*/
     public void addItem() {
+        System.out.println("The max price is $10.99.");
         String item = askItem();
         double price = askCost();
         while (price >= 11) {

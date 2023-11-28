@@ -71,8 +71,6 @@ public class Work {
                     System.out.println("Current Balance: $" + String.format("%.2f", money));
                 }
             }
-
-
             day++;
         }
         if (money < 0) {
@@ -111,7 +109,12 @@ public class Work {
         money += orderCost;
     }
     public void upgrade() {
-        money = upgrades.purchase(money);
+        double temp = upgrades.purchase(money);
+        if (temp == -1) {
+            choice();
+        } else {
+            money = temp;
+        }
     }
     private void sleep(long time) { // (1) just here so I can make losing have a dramatic effect
         try {

@@ -13,11 +13,14 @@ public class Upgrades {
             levels[i]++;
         }
     }
-
+    /*Used in the Work class
+      It prints each of the upgrades, their current levels, and prices(if not maxed already)
+      User chooses one and that upgrade's level increases by 1
+     */
     public double purchase(double money) {
         double cost;
         System.out.println("Upgrades(type the number of which upgrade)");
-        for (int i = 0; i < upgrades.length; i++) {
+        for (int i = 0; i < levels.length; i++) {
             if (i == 0) {
                 System.out.print("1. Daily Actions, Level: ");
                 if (levels[0] == 2) {
@@ -37,10 +40,14 @@ public class Upgrades {
                 }
             }
         }
+        System.out.println("6. EXIT UPGRADE");
         System.out.print("Upgrade: ");
         int choice = scan.nextInt();
         scan.nextLine();
         choice--;
+        if (choice == 5) {
+            return -1;
+        }
         while (choice > 4 || levels[choice] == 3 || (choice == 0 && levels[0] == 2)) {
             if (choice > 4) {
                 System.out.print("That is an invalid choice. Enter another one: ");
@@ -63,6 +70,7 @@ public class Upgrades {
         System.out.println(choice + 1 + ". " + upgrades[choice] + ", Level: " + levels[choice]);
         return money;
     }
+    //Calculates the bonus that the user has based off the levels of the upgrades
     public double calculateBonus() {
         int bonus = 0;
         for (int i = 0; i < levels.length; i++) {
@@ -70,6 +78,7 @@ public class Upgrades {
         }
         return 1 + bonus * 0.1;
     }
+    //Used to increase actions in the Work class
     public boolean incrementActions(int lvl) {
         return lvl < levels[0];
     }
