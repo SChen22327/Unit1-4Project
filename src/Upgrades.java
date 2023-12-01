@@ -2,7 +2,7 @@ import java.text.DecimalFormat;
 import java.util.Scanner;
 public class Upgrades {
     private Scanner scan;
-    private String[] upgrades = {"Daily Actions", "Better Stove", "Appearance", "Better Supplier", "Cleaner Kitchen"};
+    private String[] upgrades = {"Daily Actions", "Better Stove", "Better Appearance", "Better Supplier", "Cleaner Kitchen"};
     private int[] levels = {1, 1, 1, 1, 1};
     public Upgrades(Scanner scan) {
        this.scan = scan;
@@ -41,7 +41,7 @@ public class Upgrades {
             }
         }
         System.out.println("6. EXIT UPGRADE");
-        System.out.print("Upgrade: ");
+        System.out.print("Upgrade(1-6): ");
         int choice = scan.nextInt();
         scan.nextLine();
         choice--;

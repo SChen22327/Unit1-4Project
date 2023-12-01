@@ -41,6 +41,9 @@ public class Menu {
     public void addItem() {
         System.out.println("The max price is $10.99.");
         String item = askItem();
+        if (item.length() > 9) {
+            item = item.substring(0, 9) + "...";
+        }
         double price = askCost();
         while (price >= 11 || price <0) {
             while (price >= 11) {
@@ -58,6 +61,9 @@ public class Menu {
     /**Overloaded method that adds a provided item to the menu and makes the item free(adds 0 to the Prices ArrayList)
      *@param item item name*/
     public void addItem(String item) {
+        if (item.length() > 9) {
+            item = item.substring(0, 9) + "...";
+        }
         menuItems.add(item);
         double price = 0;
         prices.add(price);
@@ -66,6 +72,7 @@ public class Menu {
      * @return item name*/
     private String askItem() {
         System.out.print("Add an item to the menu: ");
+
         return scan.nextLine();
     }
     /**Asks user for a price and return it as a double

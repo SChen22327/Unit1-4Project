@@ -36,7 +36,7 @@ public class Work {
         this.name = name;
         this.scan = scan;
         day = 7;
-        System.out.print("Do you want to play in easy mode? All upgrades except actions will start at level 2.\nEnter 1 for easy mode, 2 for normal mode: ");
+        System.out.print("Do you want to play in easy mode?\nAll upgrades except actions will start at level 2.\nEnter 1 for easy mode, 2 for normal mode: ");
         String n = scan.nextLine();
         if (n.toLowerCase().equals("1")) {
             upgrades = new Upgrades(scan, true);
