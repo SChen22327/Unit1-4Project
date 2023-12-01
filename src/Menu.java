@@ -42,9 +42,15 @@ public class Menu {
         System.out.println("The max price is $10.99.");
         String item = askItem();
         double price = askCost();
-        while (price >= 11) {
-            System.out.println("That's too expensive! No one will buy that!\nTry a different price.");
-            price = askCost();
+        while (price >= 11 || price <0) {
+            while (price >= 11) {
+                System.out.println("That's too expensive! No one will buy that!\nTry a different price.");
+                price = askCost();
+            }
+            while (price < 0) {
+                System.out.println("That's a negative number! Don't be insane, try a different price.");
+                price = askCost();
+            }
         }
         menuItems.add(item);
         prices.add(price);

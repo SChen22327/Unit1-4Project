@@ -1,5 +1,6 @@
 /*  (1) https://www.javaprogramto.com/2020/08/how-to-make-delay-in-java-thread-sleep.html
-    (2)
+    (2) https://www.w3schools.io/java/java15-text-blocks/
+    (3)
  */
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -12,12 +13,13 @@ public class Work {
     private String ftName;
     private int day;
     private int actions;
+    private int goal;
     private boolean easyMode;
     public Work(Scanner scan, String name) {
         money = 0;
         this.name = name;
         this.scan = scan;
-        day = 1;
+        day = 7;
         System.out.print("Do you want to play in easy mode? All upgrades except actions will start at level 2.\nEnter 1 for easy mode, 2 for normal mode: ");
         String n = scan.nextLine();
         if (n.toLowerCase().equals("1")) {
@@ -29,20 +31,37 @@ public class Work {
         actions = 1;
         easyMode = true;
     }
+    public Work(Scanner scan, String name, int goal) {
+        money = 0;
+        this.name = name;
+        this.scan = scan;
+        day = 7;
+        System.out.print("Do you want to play in easy mode? All upgrades except actions will start at level 2.\nEnter 1 for easy mode, 2 for normal mode: ");
+        String n = scan.nextLine();
+        if (n.toLowerCase().equals("1")) {
+            upgrades = new Upgrades(scan, true);
+        } else {
+            upgrades = new Upgrades(scan);
+        }
+        this.goal = goal;
+        menu = new Menu(scan);
+        actions = 1;
+        easyMode = true;
+    }
 
     public void start() {
-        System.out.print("Enter your food truck's name: ");
+        System.out.print("Enter a name for your new food truck: ");
         ftName = scan.nextLine();
-        System.out.println("""
+        System.out.printf("""
                 The rules of this game are
-                  1. You have 7 days/rounds to earn $300.
+                  1. You have 7 days/rounds to earn $%s.
                   2. You can buy upgrades which will greatly increase the money you earn but decreases the amount of money you have(see rule 5).
-                  3. You can work each day to earn money. Upgrades will be applied at the end of each day.
+                  3. You can work each day to earn money. Any upgrades will be applied at the end of each work action.
                   4. You can ONLY choose to work or upgrade each day, you can't do both.
-                      a. The amount of money made somewhat depends on the number of items on your menu, which increases by 1 each day, meaning you'll likely earn more later on.
+                      a. You can increase your actions by 1, allowing you to do two things each day.
                       b. If you choose to upgrade, you may only choose to upgrade one thing.
-                      c. The condition is changed if you upgrade number of actions, max 2 actions per day.
-                  5. If you fail to earn enough money or run out of money, you will lose.""");
+                      c. The amount of money made somewhat depends on the number of items on your menu, which increases by 1 each day, meaning you'll likely earn more later on.
+                  5. If you fail to earn enough money or run out of money, you will lose.%n""", goal); //(2)
 
         while (day != 8 && money >= 0) {          //THIS IS THE WORK DAY LOOP//
             System.out.println("\nDay " + day + " of " + name + "'s food truck");
@@ -79,8 +98,15 @@ public class Work {
             System.out.println("Congratulations! Your food truck was a success and you hit your goal of $300!");
         } else {
             System.out.println("You couldn't make your budget in time and now you're poor and homeless.\n");
-            sleep(3000);
-            System.out.println("FOREVER");
+            System.out.print("Pause for dramatic effect");
+            sleep(700);
+            System.out.print(".");
+            sleep(700);
+            System.out.print(".");
+            sleep(700);
+            System.out.print(".");
+            sleep(700);
+            System.out.println("\n\nFOREVER");
         }
     }
     private void choice() {
