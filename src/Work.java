@@ -5,6 +5,7 @@
 import java.util.Scanner;
 
 public class Work {
+    //A lot of instance variables
     private double money;
     private String name;
     private Scanner scan;
@@ -14,6 +15,7 @@ public class Work {
     private int day;
     private int actions;
     private int goal;
+    //overloaded and regular constructors
     public Work(Scanner scan, String name) {
         money = 0;
         this.name = name;
@@ -54,7 +56,7 @@ public class Work {
         menu = new Menu(scan);
         actions = 1;
     }
-
+    //the actual "game" itself
     public void start() {
         System.out.print("Enter a name for your new food truck: ");
         ftName = scan.nextLine();
@@ -136,6 +138,7 @@ public class Work {
             System.out.println("FOREVER\nRating: YOU DON'T DESERVE ONE");
         }
     }
+    //Asks user to work or upgrade, running the corresponding method
     private void choice() {
         System.out.println("\"Today, I'm going to: \"     (type name)");
         System.out.println("     [Work]    [Upgrade]");
@@ -149,7 +152,8 @@ public class Work {
             choice();
         }
     }
-    private void work() {  //CALCULATES MONEY EARNED AND UPGRADE BONUSES//
+    //Calculates money earned and bonuses
+    private void work() {
         double bonus = upgrades.calculateBonus();
         double orderCost = 0;
         int orders = (int) (Math.random() * 3) + (int) (Math.random() * menu.getMenu().size()) + 1;
@@ -161,6 +165,8 @@ public class Work {
         System.out.println("You had " + orders + " orders. With current level of upgrades(+" +  Math.round((bonus - 1) * 100) + "%), you made $" + String.format("%.2f",orderCost) + ".");
         money += orderCost;
     }
+    /*Runs the purchase method in the Upgrades class, decreasing the user's balance by the money used to purchase an upgrade
+      Also has an "exit" in case the user decides not to upgrade, work doesn't have one*/
     public void upgrade() {
         double temp = upgrades.purchase(money);
         if (temp == -1) {
@@ -169,6 +175,7 @@ public class Work {
             money = temp;
         }
     }
+    //Just delays the code for *dramatic effect*
     private void sleep(long time) { // (1) just here so I can make losing have a dramatic effect
         try {
             Thread.sleep(time);
