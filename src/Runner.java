@@ -9,11 +9,11 @@ public class Runner {
         int goal = scan.nextInt();
         scan.nextLine();
         while (goal < 250 && goal != -1) {
-            System.out.print("Enter a goal that's AT LEAST $250: $");
+            System.out.print("Enter a goal that's AT LEAST $250 or -1 for $300: $");
             goal = scan.nextInt();
             scan.nextLine();
         }
-        if (goal != -1) {
+        if (!(goal == -1 || goal == 300)) {
             job = new Work(scan, name, goal);
         } else {
             job = new Work(scan, name);

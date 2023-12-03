@@ -1,4 +1,3 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -21,7 +20,7 @@ public class Menu {
 
     /**Creates a string with the menu item and its price. It then prints the string as a menu.*/
     public void printMenu() {
-        String string = "     Menu\n";
+        String string = "          Menu\n";
         for (int i = 0; i < menuItems.size(); i++) {
             string += menuItems.get(i) + "  |  $" + String.format("%.2f",prices.get(i)) + "\n";
         }
@@ -43,6 +42,10 @@ public class Menu {
         String item = askItem();
         if (item.length() > 9) {
             item = item.substring(0, 9) + "...";
+        } else {
+            for(int i = item.length(); i < 12; i++) {
+                item += " ";
+            }
         }
         double price = askCost();
         while (price >= 11 || price <0) {
@@ -63,6 +66,10 @@ public class Menu {
     public void addItem(String item) {
         if (item.length() > 9) {
             item = item.substring(0, 9) + "...";
+        } else {
+            for (int i = item.length(); i < 12; i++) {
+                item += " ";
+            }
         }
         menuItems.add(item);
         double price = 0;
@@ -72,7 +79,6 @@ public class Menu {
      * @return item name*/
     private String askItem() {
         System.out.print("Add an item to the menu: ");
-
         return scan.nextLine();
     }
     /**Asks user for a price and return it as a double

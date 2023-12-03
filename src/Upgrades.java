@@ -1,16 +1,14 @@
-import java.text.DecimalFormat;
 import java.util.Scanner;
 public class Upgrades {
     private Scanner scan;
-    private String[] upgrades = {"Daily Actions", "Better Stove", "Better Appearance", "Better Supplier", "Cleaner Kitchen"};
+    private String[] upgrades = {"Daily Actions(starts next day)", "Better Stove", "Better Appearance", "Better Supplier", "Cleaner Kitchen"};
     private int[] levels = {1, 1, 1, 1, 1};
-    public Upgrades(Scanner scan) {
-       this.scan = scan;
-    }
     public Upgrades(Scanner scan, boolean easy) {
         this.scan = scan;
-        for (int i = 1; i < levels.length; i++) {
-            levels[i]++;
+        if (easy) {
+            for (int i = 1; i < levels.length; i++) {
+                levels[i]++;
+            }
         }
     }
     /*Used in the Work class
@@ -50,9 +48,9 @@ public class Upgrades {
         }
         while (choice > 4 || levels[choice] == 3 || (choice == 0 && levels[0] == 2)) {
             if (choice > 4) {
-                System.out.print("That is an invalid choice. Enter another one: ");
+                System.out.print("Why did you choose an invalid choice? Enter something else: ");
             } else {
-                System.out.print("That upgrade has been maxed out. Enter another one: ");
+                System.out.print("That upgrade's already maxed out, enter something else: ");
             }
             choice = scan.nextInt();
             scan.nextLine();
@@ -73,7 +71,7 @@ public class Upgrades {
     //Calculates the bonus that the user has based off the levels of the upgrades
     public double calculateBonus() {
         int bonus = 0;
-        for (int i = 0; i < levels.length; i++) {
+        for (int i = 1; i < levels.length; i++) {
             bonus += levels[i] - 1;
         }
         return 1 + bonus * 0.1;
