@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-
 /**This class represents a Menu object.
  * @author Stanford*/
 public class Menu {
@@ -17,7 +16,6 @@ public class Menu {
         prices = new ArrayList<>();
         this.scan = scan;
     }
-
     /**Creates a string with the menu item and its price. It then prints the string as a menu.*/
     public void printMenu() {
         String string = "          Menu\n";

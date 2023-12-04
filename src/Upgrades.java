@@ -39,7 +39,7 @@ public class Upgrades {
             }
         }
         System.out.println("6. EXIT UPGRADE");
-        System.out.print("Upgrade(1-6): ");
+        System.out.print("Upgrade(1 - 6): ");
         int choice = scan.nextInt();
         scan.nextLine();
         choice--;
