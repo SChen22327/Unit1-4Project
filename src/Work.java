@@ -34,7 +34,7 @@ public class Work {
             }
         }
         System.out.println("Demo mode decreases current goal by $50 and the number of days by 2.");
-        System.out.print("For demo mode, type 123: ");
+        System.out.print("For demo mode, type 123. Type anything else to ignore: ");
         String demo = scan.nextLine();
         if (demo.equals("123")) {
             System.out.println("Demo mode selected.");
@@ -56,15 +56,17 @@ public class Work {
         String n = "silly placeholder";
         while (!(n.equals("1") || n.equals("2"))) {
             n = scan.nextLine();
-            if (n.equals("1") || n.equals("2")) {
+            if (n.equals("1")) {
                 upgrades = new Upgrades(scan, true);
+            } else if (n.equals("2")) {
+                upgrades = new Upgrades(scan, false);
             } else {
                 System.out.print("That's not a valid option, try again: ");
             }
         }
         this.goal = goal;
         System.out.println("Demo mode decreases current goal by $50 and the number of days by 2.");
-        System.out.print("For demo mode, type 123: ");
+        System.out.print("For demo mode, type 123. Type anything else to ignore: ");
         String demo = scan.nextLine();
         if (demo.equals("123")) {
             System.out.println("Demo mode selected.");
@@ -83,17 +85,17 @@ public class Work {
         System.out.printf("""
                 ⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻
                 The rules of this game are
-                  1. You have 7 days/rounds to earn $%s.
+                  1. You have %1$s days/rounds to earn $%2$s.
                   2. Every day, you will be asked to add an item to the menu. You can give it a price OR make it free.
                   3. You can buy upgrades which will greatly increase the money you earn but decreases the amount of
-                     money you have(see rule 5).
+                     money you have(see rule 6).
                   4. You can work each day to earn money. Any upgrades will be applied at the end of each work action.
                   5. You can ONLY choose to work or upgrade each day, you can't do both.
                       a. You can increase your actions by 1, allowing you to do two things each day.
                       b. If you choose to upgrade, you may only choose to upgrade one thing.
-                      c. The amount of money made somewhat depends on the number of items on your menu, which increases
-                         by 1 each day, meaning you'll likely earn more later on.
-                  6. If you fail to earn enough money or run out of money, you will lose.""", goal); //(2)
+                      c. Money made somewhat depends on the number of items on your menu, which increases by 1 each day,
+                         meaning you'll likely earn more later on.
+                  6. If you fail to earn enough money or run out of money, you will lose.""", maxDay, goal); //(2)
         while (day != maxDay && money >= 0) {          //THIS IS THE WORK DAY LOOP//
             System.out.println("\n⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻");
             System.out.println("\nDay " + day + " of " + name + "'s food truck");
@@ -106,14 +108,14 @@ public class Work {
             System.out.println("\nWould you like to make this next item free? Yes for free, no for adding a price.");
             System.out.print("Be warned that this may affect your earnings: ");
             String y = "nonsense placeholder or something???";
-            while (!(y.toLowerCase().equals("yes") || y.toLowerCase().equals("no"))) {
+            while (!(y.equalsIgnoreCase("yes") || y.equalsIgnoreCase("no"))) {
                 y = scan.nextLine();
-                if (y.toLowerCase().equals("yes")) {
+                if (y.equalsIgnoreCase("yes")) {
                     System.out.println("You chose to favor the poor and made it free.");
                     System.out.print("Enter item to make free(I suggest water): ");
                     String item = scan.nextLine();
                     menu.addItem(item);
-                } else if (y.toLowerCase().equals("no")) {
+                } else if (y.equalsIgnoreCase("no")) {
                     System.out.println("You chose to give it a price.");
                     menu.addItem();
                 } else {
@@ -130,18 +132,17 @@ public class Work {
             }
             day++;
         }
-        System.out.println("The 7 days are over, let's see how \"" + ftName + "\" did.");
+        System.out.printf("The %s days are over, let's see how \"" + ftName + "\" did.\n", maxDay - 1);
         System.out.println("Balance: " + String.format("%.2f", money));
         System.out.println("Goal to reach: " + goal);
         menu.printMenu();
         if (money < 0) {
             System.out.println("You ran out of money and your food truck has gone out of business! What a failure...");
-            int i = 0;
-            while (i < menu.getPrices().size()) {
+            for (int i  = 0; i < menu.getPrices().size(); i++) {
                 if (menu.getPrices().get(i) == 0) {
-                    System.out.println("At least the people are happy you made " + menu.getMenu().get(i) + " free...");
+                    System.out.print("At least the people are happy you made something on your menu free for the poor...");
                     System.out.println("Rating: 1/5 stars");
-                    i = menu.getPrices().size();
+                    break;
                 }
             }
         } else if (money >= goal) {
@@ -164,9 +165,9 @@ public class Work {
         System.out.println("     [Work]    [Upgrade]");
         String choice = scan.nextLine();
         System.out.println();
-        if (choice.toLowerCase().equals("work")) {
+        if (choice.equalsIgnoreCase("work")) {
             work();
-        } else if (choice.toLowerCase().equals("upgrade")) {
+        } else if (choice.equalsIgnoreCase("upgrade")) {
             upgrade();
         } else {
             System.out.println("That's not an option!");

@@ -16,24 +16,6 @@ public class Menu {
         prices = new ArrayList<>();
         this.scan = scan;
     }
-    /**Creates a string with the menu item and its price. It then prints the string as a menu.*/
-    public void printMenu() {
-        String string = "          Menu\n";
-        for (int i = 0; i < menuItems.size(); i++) {
-            string += menuItems.get(i) + "  |  $" + String.format("%.2f",prices.get(i)) + "\n";
-        }
-        System.out.println(string);
-    }
-    /**Returns the Menu ArrayList
-     * @return menuItems*/
-    public ArrayList getMenu() {
-        return menuItems;
-    }
-    /**Returns the Prices ArrayList
-     * @return prices*/
-    public ArrayList<Double> getPrices() {
-        return prices;
-    }
     /**Asks user for a menu item and price. Then adds it to the corresponding ArrayList.*/
     public void addItem() {
         System.out.println("The max price is $10.99.");
@@ -58,6 +40,24 @@ public class Menu {
         }
         menuItems.add(item);
         prices.add(price);
+    }
+    /**Returns the Menu ArrayList
+     * @return menuItems*/
+    public ArrayList getMenu() {
+        return menuItems;
+    }
+    /**Returns the Prices ArrayList
+     * @return prices*/
+    public ArrayList<Double> getPrices() {
+        return prices;
+    }
+    /**Creates a string with the menu item and its price. It then prints the string as a menu.*/
+    public void printMenu() {
+        String string = "          Menu\n";
+        for (int i = 0; i < menuItems.size(); i++) {
+            string += menuItems.get(i) + "  |  $" + String.format("%.2f",prices.get(i)) + "\n";
+        }
+        System.out.println(string);
     }
     /**Overloaded method that adds a provided item to the menu and makes the item free(adds 0 to the Prices ArrayList)
      *@param item item name*/
